@@ -2,7 +2,7 @@
 
 
 A simple project that I made while learning the AdonisJS framework, and... yeah, its Contact App (again), and this project is very simple. This project isn't even responsive, I just rely on Flowbite and DaisyUI for the web display (I don't know if combining Flowbite and DaisyUI is a good idea). \
-Don't hesitate to give criticism and suggestions, because it can help me to improve.
+`Don't hesitate to give criticism and suggestions, because it can help me to improve.`
 
 
 
