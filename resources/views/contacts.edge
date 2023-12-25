@@ -1,0 +1,142 @@
+@layout('layouts/main')
+@set('title', 'Contact List')
+
+@section('body')
+<div class="container mx-auto mb-5 items-center">
+    <div class="mt-5 h-[95vh]">
+        {{-- Notification --}}
+        @if(flashMessages.has('success'))
+        <div class="toast toast-bottom toast-end z-50">
+            <div id="toast-success"
+                class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
+                role="alert">
+                <div
+                    class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                        viewBox="0 0 20 20">
+                        <path
+                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                    </svg>
+                    <span class="sr-only">Check icon</span>
+                </div>
+                <div class="ms-3 text-sm font-normal">{{ flashMessages.get('success') }}</div>
+                <button type="button"
+                    class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+                    data-dismiss-target="#toast-success" aria-label="Close">
+                    <span class="sr-only">Close</span>
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        @endif
+
+        {{-- # ===== # Add Contact Section # ===== # --}}
+        <div>
+            {{-- Modal (add contact) --}}
+            <button class="btn mb-3" onclick="my_modal_3.showModal()">Add Contact</button>
+            <dialog id="my_modal_3" class="modal">
+                <div class="modal-box">
+                    <form method="dialog">
+                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    </form>
+
+                    {{-- Modal Content--}}
+                    <div class="title">
+                        <h1 class="text-3xl">
+                            Add Contact
+                        </h1>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    {{-- Add Contact Form --}}
+                    <form action="{{ route('contact.create') }}" method="post">
+                        {{-- Name --}}
+                        <label class="form-control w-full">
+                            <div class="label">
+                                <span class="label-text">Name</span>
+                            </div>
+                        </label>
+                        <input name="name" type="text" class="input input-bordered w-full" />
+
+                        {{-- Email --}}
+                        <label class="form-control w-full mt-3">
+                            <div class="label">
+                                <span class="label-text">Email</span>
+                            </div>
+                        </label>
+                        <input name="email" type="text" class="input input-bordered w-full" />
+
+                        {{-- Phone Number --}}
+                        <label class="form-control w-full mt-3">
+                            <div class="label">
+                                <span class="label-text">Phone Number</span>
+                            </div>
+                        </label>
+                        <input name="phonenum" type="number" class="input input-bordered w-full" />
+
+                        {{-- Submit --}}
+                        <div class="mt-5 flex justify-center">
+                            <button type="submit" class="btn btn-info w-full max-w-xs">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </dialog>
+        </div>
+
+        {{-- # ===== # Table Section # ===== # --}}
+        <div class="overflow-x-auto">
+            <table class="table">
+                <!-- head -->
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone Number</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @each(contact in contacts)
+                    <tr class="hover">
+                        <td>{{ contact.name }}</td>
+                        <td>{{ contact.email }}</td>
+                        <td>{{ contact.phonenum }}</td>
+
+                        {{-- Detail & Delete --}}
+                        <td class="flex gap-3">
+                            {{-- Detail Button --}}
+                            <a href="{{ route('contact.detail', {id: contact.contact_id}) }}" class="btn btn-info">
+                                Detail
+                            </a>
+
+                            {{-- Delete Button --}}
+                            <a href="{{ route('contact.delete', {id: contact.contact_id}) }}" class="btn btn-error"
+                                onclick="return confirm('Are you sure want to DELETE this contact?')">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                    @endeach
+                </tbody>
+            </table>
+        </div>
+
+        {{-- Pagination Section --}}
+        <div class="mt-5 flex justify-center">
+            <div class="join">
+                @each(anchor in contacts.getUrlsForRange(1, contacts.lastPage))
+                <a href="{{ anchor.url }}">
+                    <input class="join-item btn btn-square" type="radio" name="options"
+                        aria-label="{{ anchor.page }}" />
+                </a>
+                @endeach
+            </div>
+        </div>
+    </div>
+</div>
+@end
