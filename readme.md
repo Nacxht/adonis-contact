@@ -24,8 +24,7 @@ A simple project that I made while learning the AdonisJS framework, and... yeah,
 ```
 
 - Change .env.example to .env
-
-After that, change the settings in the ".env" file according to your preferences.
+`After that, change the settings in the ".env" file according to your preferences.`
 
 - Migration
 ```bash
@@ -61,9 +60,9 @@ After that, change the settings in the ".env" file according to your preferences
 ```
 
 - Copy your .env file into the build directory
-```
+`
 Yea, copy it. And then copy the contents of the variable "MYSQL_HOST" into the variable "HOST" variable. (I don't know whether this is the right step or not, because its works for me, so if I made a mistake, please feel free to give me a correction).
-```
+`
 
 
 - Start the server
