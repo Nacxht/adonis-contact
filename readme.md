@@ -3,6 +3,8 @@
 
 A simple project that I made while learning the AdonisJS framework, and... yeah, its Contact App (again), and this project is very simple. This project isn't even responsive, I just rely on Flowbite and DaisyUI for the web display (I don't know if combining Flowbite and DaisyUI is a good idea). \
 `Don't hesitate to give criticism and suggestions, because it can help me to improve.`
+ \
+`Note: I use 67x zoom in my web browser (I use firefox).`
 
 
 
